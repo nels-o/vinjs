@@ -1,0 +1,11 @@
+{
+  "name": "vintool",
+  "version": "0.0.0",
+  "description": "VIN manipulation toolkit.",
+  "main": "vin.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nels Oscar",
+  "license": "UNLICENSED"
+}

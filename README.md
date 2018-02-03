@@ -1,2 +1,2 @@
 # vinjs
-VIN tools for javascript. Ported from python-libvin.
+VIN tools for javascript
