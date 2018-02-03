@@ -1,11 +1,15 @@
 {
   "name": "vintool",
+  "repository" : { 
+    "type" : "git", 
+    "url" : "https://github.com/nels-o/vinjs.git"
+  },
   "version": "0.0.0",
   "description": "VIN manipulation toolkit.",
   "main": "vin.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Nels Oscar",
+  "author": "Nels Oscar <nels.oscar@live.com>",
   "license": "UNLICENSED"
 }
