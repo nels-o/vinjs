@@ -4,7 +4,7 @@
     "type" : "git", 
     "url" : "https://github.com/nels-o/vinjs.git"
   },
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "VIN manipulation toolkit.",
   "main": "vin.js",
   "scripts": {
@@ -13,3 +13,4 @@
   "author": "Nels Oscar <nels.oscar@live.com>",
   "license": "UNLICENSED"
 }
+  
