@@ -125,8 +125,8 @@ class VIN {
       return C.WMI_MAP[t];
     }
     t = wmi.slice(0, 2);
-    if (WMI_MAP[t]) {
-      return WMI_MAP[t];
+    if (C.WMI_MAP[t]) {
+      return C.WMI_MAP[t];
     }
     return 'Unknown';
   }
