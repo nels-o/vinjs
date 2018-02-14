@@ -28,7 +28,7 @@ harness = (f) => {
   try {
     console.log('   ', f);
     console.log('        ✔', vin[f]());
-  } catch(e) {
+  } catch (e) {
     console.error('        ❌\n', e);
   }
 }
