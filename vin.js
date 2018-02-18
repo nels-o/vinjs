@@ -1,12 +1,13 @@
 const C = require('./constants');
 
 class VIN {
-  static decode(vin) {
-    return new VIN(vin);
+  static decode(vin, flags = { validate_check_digit: true }) {
+    return new VIN(vin, flags);
   }
 
-  constructor(vin) {
+  constructor(vin, flags = { validate_check_digit: true }) {
     this.vin = vin.toUpperCase();
+    this.validate_check_digit = flags.validate_check_digit;
   }
 
   country() {
@@ -56,18 +57,23 @@ class VIN {
     const products = this.vin.split('').map((i, j) => {
       return C.VIN_WEIGHT[j] * C.VIN_TRANSLATION[i];
     });
-  
-    let check_digit = products.reduce((a, b) => a + b) % 11;
-    if (check_digit == 10) {
-      check_digit = 'X';
-    }
 
-    if (this.vin[8] != check_digit.toString()) {
-      // The ninth position of the VIN is a calculated value based on 
-      // the other 16 alphanumeric values, it's called the 
-      // "Check Digit". The result of the check digit can ONLY be a 
-      // numeric 0-9 or letter "X".
-      return false;
+    // Check digit is present in North America vehicels only
+    // User should check the region first and set 'validate_check_digit'
+    // flag accordingly
+    if (this.validate_check_digit) {
+      let check_digit = products.reduce((a, b) => a + b) % 11;
+      if (check_digit == 10) {
+        check_digit = 'X';
+      }
+
+      if (this.vin[8] != check_digit.toString()) {
+        // The ninth position of the VIN is a calculated value based on 
+        // the other 16 alphanumeric values, it's called the 
+        // "Check Digit". The result of the check digit can ONLY be a 
+        // numeric 0-9 or letter "X".
+        return false;
+      }
     }
     return true;
   }
@@ -115,7 +121,7 @@ class VIN {
   }
 
   squish_vin() {
-    return this.vin.substr( 0, 8 ) + this.vin.substr( 9, 2 );
+    return this.vin.substr(0, 8) + this.vin.substr(9, 2);
   }
 
   manufacturer() {
@@ -137,20 +143,20 @@ class VIN {
     // Should probably have a static table instead of doing late fixup like this.
     let man = this.manufacturer();
     for (let suffix in [
-        'Argentina',
-        'Canada',
-        'Cars',
-        'France',
-        'Hungary',
-        'Mexico',
-        'Motor Company',
-        'Truck USA',
-        'Turkey',
-        'USA',
-        'USA - trucks',
-        'USA (AutoAlliance International)',
-      ]) {
-      if (man.endsWith(suffix)){
+      'Argentina',
+      'Canada',
+      'Cars',
+      'France',
+      'Hungary',
+      'Mexico',
+      'Motor Company',
+      'Truck USA',
+      'Turkey',
+      'USA',
+      'USA - trucks',
+      'USA (AutoAlliance International)',
+    ]) {
+      if (man.endsWith(suffix)) {
         man = man.replace(` ${suffix}`, '');
       }
     }
